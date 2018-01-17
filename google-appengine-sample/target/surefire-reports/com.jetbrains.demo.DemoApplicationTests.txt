@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.jetbrains.demo.DemoApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.682 s - in com.jetbrains.demo.DemoApplicationTests
