@@ -1,14 +1,14 @@
 #!/bin/sh
 
 # Set the metadata server to the get projct id
-PROJECTID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
-BUCKET=$(curl -s "http://metadata.google.internal/computeMetadata/v1/instance/attributes/BUCKET" -H "Metadata-Flavor: Google")
+PROJECTID=cdbg-gae-kotlin
+BUCKET=cdbg-gae-kotlin
 
 
 echo "Project ID: ${PROJECTID} Bucket: ${BUCKET}"
 
 # Get the files we need
-gsutil cp gs://${BUCKET}/demo.jar . 
+gsutil cp gs://${BUCKET}/demo.jar .
 
 # Install dependencies
 apt-get update
@@ -18,6 +18,6 @@ apt-get -y --force-yes install openjdk-8-jdk
 update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
 
 # Start server
-java -jar demo.jar
+java -agentpath:/opt/cdbg/cdbg_java_agent.so -Dcom.google.cdbg.module="Kotlin Demo" -Dcom.google.cdbg.version="1.0" -jar demo.jar
 
 
