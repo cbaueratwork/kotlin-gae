@@ -15,11 +15,14 @@ data class Message(
 ) : IMessage
 
 object Blurb {
-    fun getBlurb(fromData: Boolean): String {
-        return if (fromData) this.blurbData else "blurb"
-    }
+  fun getBlurb(fromData: Boolean): String {
+    this.otherData = "blurb"
+    return if (fromData) this.blurbData else this.otherData
+  }
 
-    val blurbData = "flerber"
+  val blurbData = "flerber"
+
+  var otherData = "should not be blurb"
 }
 
 private fun generateBlurb(): Widget {
@@ -54,10 +57,12 @@ class MessageController {
   fun subMessage(): SubMessage {
     val customSubWidget = SubWidget("trinket")
     val defaultSubWidget = SubWidget()
-    val defaultBlurbSubWidget = SubWidget(Blurb.getBlurb(true))
-    val blurbSubWidget = SubWidget(Blurb.getBlurb(false))
+    val defaultSubObjectSubWidget = SubWidget(SubObject.getSubObject(true))
+    val blurbSubWidget = SubWidget(SubObject.getSubObject(false))
     var generatedSubWidget = SubWidget()
     generatedSubWidget = MessageController.generateSubBlurb()
+
+    val privateSubWidget = MessageController.generateSub1()
 
     return SubMessage(
         "Hello from Cloud Debugger",
@@ -66,9 +71,10 @@ class MessageController {
         arrayOf(
             defaultSubWidget,
             customSubWidget,
-            defaultBlurbSubWidget,
-            blurbSubWidget,
-            generatedSubWidget
+            defaultSubWidget,
+            defaultSubObjectSubWidget,
+            generatedSubWidget,
+            privateSubWidget
         )
     )
   }
@@ -76,6 +82,12 @@ class MessageController {
   companion object {
     fun generateSubBlurb(): SubWidget {
       return SubWidget("subgenerated")
+    }
+    private fun generateSub1(): SubWidget {
+      return SubWidget("private1")
+    }
+    private fun generateSub2(): SubWidget {
+      return SubWidget("private2")
     }
   }
 
