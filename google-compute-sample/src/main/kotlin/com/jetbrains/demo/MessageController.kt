@@ -65,7 +65,7 @@ class MessageController {
     val privateSubWidget = MessageController.generateSub1()
 
     return SubMessage(
-        "Hello from Cloud Debugger",
+        "Hello from SubCloud SubDebugger",
         "High",
         "Surprise!",
         arrayOf(
